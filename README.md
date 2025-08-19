@@ -1,9 +1,6 @@
-# Java-Projects
 # Java Projects 🚀
-
 This repository contains my Java practice mini-projects.  
 Currently added: **Static Key Demo**
-
 ---
 
 ## 📌 Project: Student Registration (Static Key Demo)
