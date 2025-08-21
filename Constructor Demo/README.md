@@ -1,24 +1,25 @@
 ---
+
 🏦 Constructor Demo – Bank Account Example
 
 This program demonstrates the different types of constructors in Java using a simple BankAccount class.
 
 ✨ Features
 
-Default Constructor → Initializes account with default values.
+Default Constructor → Initializes account with default values
 
-Parameterized Constructor → Initializes account with user-provided details (name & balance).
+Parameterized Constructor → Initializes account with user-provided details (name & balance)
 
-Copy Constructor → Creates a new account by copying details from an existing account.
+Copy Constructor → Creates a new account by copying details from an existing account
 
 
 📌 Code Highlights
 
-Shows how to overload constructors in Java.
+Shows how to overload constructors in Java
 
-Demonstrates object creation with different constructors.
+Demonstrates object creation with different constructors
 
-Includes input validation (balance must be greater than 0).
+Includes input validation (balance > 0)
 
 
 🖥️ Sample Output
