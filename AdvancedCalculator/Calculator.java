@@ -3,9 +3,7 @@ import java.math.*;
 import java.lang.*;
 import java.io.*;
 class Calculator 
-{
-               //Save File nmae as Calculator.java
-  
+{           /*Save file name as Calculator.java*/
   static BigInteger getBigFactorial(int n) {
     BigInteger result = BigInteger.ONE;
     for (int i = 1; i <= n; i++) { // a method to calculate factorial here used advanced data type BigInteger to avoid overflow 
@@ -27,6 +25,40 @@ class Calculator
         }
         return value;
      }
+    static void performOperation(double num1, double num2, char operator) {
+    double result = 0;
+    String opSymbol = "";
+                                  // A static method that takes operator as augment in addition to values and operation is performedbased on operator which is passed
+    switch(operator) {
+        case '+':
+            result = num1 + num2;
+            opSymbol = "+";
+            break;
+        case '-':
+            result = num1 - num2;
+            opSymbol = "-";
+            break;
+        case '*':
+            result = num1 * num2;
+            opSymbol = "×";
+            break;
+        case '/':
+            if(num2 == 0) {
+                System.out.println("⚠ Cannot divide by zero!");
+                return; // Exit method early
+            }
+            result = num1 / num2;
+            opSymbol = "÷";
+            break;
+    }
+    
+    // Format output
+    if(result == (int)result) {
+        System.out.printf("✅ %.0f %s %.0f = %.0f\n", num1, opSymbol, num2, result);
+    } else {
+        System.out.printf("✅ %f %s %f = %f\n", num1, opSymbol, num2, result);
+    }
+}
     public static void main(String[] args)
     {
        System.out.println("********************************************************************************************");
@@ -37,11 +69,11 @@ class Calculator
         BigInteger numerator,denominator1,denominator2,result;
         String s;
         do {
-            System.out.println("1️⃣  Addition");
+            System.out.println("1️⃣ Addition");
             System.out.println("2️⃣ Subtraction");
             System.out.println("3️⃣ Multiplication");
             System.out.println("4️⃣ Division");
-            System.out.println("5️⃣ Factorial of n ");
+            System.out.println("5️⃣ Factorial of n");
             System.out.println("6️⃣ ncr Evaluator");
             System.out.println("7️⃣ Binary to Decimal");
             System.out.println("8️⃣ Exit");
@@ -53,35 +85,28 @@ class Calculator
                         num1 = sc.nextDouble();
                         System.out.print("Enter second number: ");
                          num2 = sc.nextDouble();
-                        System.out.printf("✅ %d+%d=%d",num1,num2,(num1 + num2));
-                        System.out.println("====================================");
+                        performOperation(num1, num2, '+');
                         break;
                     case 2:
                       System.out.print("Enter first number: ");
                        num1 = sc.nextDouble();
                       System.out.print("Enter second number: ");
                        num2 = sc.nextDouble();
-                        System.out.printf("✅ %d+%d=%d",num1,num2,(num1-num2));
-                       System.out.println("====================================");
+                      performOperation(num1, num2, '-');
                         break;
                     case 3:
                        System.out.print("Enter first number: ");
                         num1 = sc.nextDouble();
                         System.out.print("Enter second number: ");
                         num2 = sc.nextDouble();
-                        System.out.printf("✅ %d+%d=%d",num1,num2,(num1*num2));
-                        System.out.println("====================================");
+                        performOperation(num1, num2, '*');
                         break;
                     case 4:
                         System.out.print("Enter first number: ");
                          num1 = sc.nextDouble();
                         System.out.print("Enter second number: ");
                          num2 = sc.nextDouble();
-                        if (num2 != 0)
-                            System.out.printf("✅ %d+%d=%d",num1,num2,(num1 /num2));
-                        else
-                            System.out.println("⚠ Cannot divide by zero!");
-                       System.out.println("====================================");
+                        performOperation(num1, num2, '/');
                         break;
                     case 5:
                       System.out.print("Enter Value:");
@@ -103,7 +128,7 @@ class Calculator
                       denominator2=  Calculator.getBigFactorial(n-r);
                       result=  numerator.divide(denominator1.multiply(denominator2));
                       System.out.print(s+" = "+result);
-                      System.out.println("====================================");
+                      System.out.println("\n====================================");
                       break;
                      default:
                        System.out.println("⚠ Invalid Choice! Try again.");
@@ -134,7 +159,6 @@ class Calculator
                          }
                          sum=integerPart+fractionPart;
                          System.out.println(binary+"="+sum);
-                         System.out.println("====================================");
                        }
                        }
                        else if(binary.matches("[01]+"))
@@ -146,10 +170,10 @@ class Calculator
                              integerPart+=t*Math.pow(2,(length-1-i));
                          }
                          System.out.println(binary+"="+integerPart);
-                         System.out.println("====================================");
                        }
                        else
                          System.out.println("Invalid binary valu1e!!");
+                       System.out.println("\n====================================");
                       break;
                 }
 
