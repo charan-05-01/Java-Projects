@@ -105,7 +105,20 @@ public class NumberFinder {
     // ================= SINGLE HINT ROUTER =================
 
     public void getHint() {
-        int hintChoice = random.nextInt(8) + 1;
+        int hintChoice = 0;
+
+        if (numOfGuesses == 1 || numOfGuesses == 2) {
+            // Hard Tier: Cases 1 to 2
+            hintChoice = random.nextInt(2) + 1;
+        }
+        else if (numOfGuesses == 3 || numOfGuesses == 4) {
+            // Medium Tier: Cases 3 to 5 (min is 3)
+            hintChoice = random.nextInt(3) + 3;
+        }
+        else {
+            // Easy Tier: Cases 6 to 8 (min is 6)
+            hintChoice = random.nextInt(3) + 6;
+        }
 
         switch (hintChoice) {
             case 1 -> checkEven_Odd(num);
@@ -123,28 +136,40 @@ public class NumberFinder {
 
     public boolean checkNum(int n) {
         if (n == -1) {
-            System.out.println("❌ Turn forfeited due to invalid entries.\n");
-            numOfGuesses++;
-            if (numOfGuesses % 2 == 0) {
-                score--;
-            }
+            System.out.println("❌ Invalid input. Please enter a valid number.");
             return false;
         }
 
-        if (num == n) {
-            System.out.println("🎉 Number Found!");
-            return true;
-        } else {
-            getHint();
-        }
-
+        // 1. Increment guess count FIRST
         numOfGuesses++;
         if (numOfGuesses % 2 == 0) {
             score--;
         }
+
+        // 2. Check Win
+        if (num == n) {
+            System.out.println("🎉 Number Found!");
+            return true;
+        }
+
+        // 3. Print High/Low feedback
+        if (n > num) {
+            System.out.println("📉 Too Low!");
+        } else {
+            System.out.println("📈 Too High!");
+        }
+
+        // 4. Check Loss (7 attempts limit) BEFORE giving hint
+        if (numOfGuesses >= 7) {
+            System.out.println("\n💥 You Lost! You used all 7 guesses.");
+            System.out.println("The Hidden Number was: " + num);
+            return true; // Ends game loop
+        }
+
+        // 5. Show hint only if guesses are remaining
+        getHint();
         return false;
     }
-
     public int checkInput(int n) {
         int invalidAttempts = 1;
         int inputNum = n;
