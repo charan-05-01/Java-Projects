@@ -9,7 +9,6 @@ public class NumberFinder {
     int num = getRandomNumber();
     int score = 10;
     int numOfGuesses = 0;
-    Scanner s = new Scanner(System.in);
     static Random random = new Random();
 
     public static int getRandomNumber() {
@@ -108,15 +107,12 @@ public class NumberFinder {
         int hintChoice = 0;
 
         if (numOfGuesses == 1 || numOfGuesses == 2) {
-            // Hard Tier: Cases 1 to 2
             hintChoice = random.nextInt(2) + 1;
         }
         else if (numOfGuesses == 3 || numOfGuesses == 4) {
-            // Medium Tier: Cases 3 to 5 (min is 3)
             hintChoice = random.nextInt(3) + 3;
         }
         else {
-            // Easy Tier: Cases 6 to 8 (min is 6)
             hintChoice = random.nextInt(3) + 6;
         }
 
@@ -136,8 +132,7 @@ public class NumberFinder {
 
     public boolean checkNum(int n) {
         if (n == -1) {
-            System.out.println("❌ Invalid input. Please enter a valid number.");
-            return false;
+            return true; // Exit loop on validation failure
         }
 
         // 1. Increment guess count FIRST
@@ -153,7 +148,7 @@ public class NumberFinder {
         }
 
         // 3. Print High/Low feedback
-        if (n > num) {
+        if (n < num) {
             System.out.println("📉 Too Low!");
         } else {
             System.out.println("📈 Too High!");
@@ -170,27 +165,30 @@ public class NumberFinder {
         getHint();
         return false;
     }
-    public int checkInput(int n) {
-        int invalidAttempts = 1;
+
+    public int checkInput(int n, Scanner sc) {
+        int invalidAttempts = 0;
         int inputNum = n;
 
-        while ((inputNum > 100 || inputNum < 1) && invalidAttempts < 3) {
-            int remaining = 3 - invalidAttempts;
-            System.out.println("⚠️ Invalid entry! Range is 1-100. You have " + remaining + " retry chance(s) left.");
-            System.out.print("Again Enter the Number (1-100): ");
-
-            try {
-                inputNum = s.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("⚠️ String input detected! Only whole numbers allowed.");
-                s.next(); // Flush buffer
-                inputNum = -1;
-            }
+        while (inputNum > 100 || inputNum < 1) {
             invalidAttempts++;
-        }
+            int remaining = 3 - invalidAttempts;
 
-        if (inputNum > 100 || inputNum < 1) {
-            return -1;
+            if (remaining > 0) {
+                System.out.println("⚠️ Invalid entry! Range is 1-100. You have " + remaining + " retry chance(s) left.");
+                System.out.print("Again Enter the Number (1-100): ");
+
+                try {
+                    inputNum = sc.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("⚠️ Invalid input! Please enter a whole number.");
+                    sc.next(); // Flush bad token
+                    inputNum = -1;
+                }
+            } else {
+                System.out.println("❌ Out of chances! Application quitting due to too many invalid entries.");
+                return -1; // Sentinel value to signify total validation failure
+            }
         }
 
         return inputNum;
@@ -212,25 +210,30 @@ public class NumberFinder {
             System.out.println("🚀 Game Started! Guess a number between 1 and 100.");
             System.out.println("-----------------------------------------\n");
 
-            nm.resetGame(); // Reset score and number for a fresh game
+            nm.resetGame();
             boolean result = false;
+            int validatedInput = 0;
 
             while (!result) {
                 System.out.print("Enter Number : ");
                 try {
-                    int num = sc.nextInt();
-                    result = nm.checkNum(nm.checkInput(num));
+                    int input = sc.nextInt();
+                    validatedInput = nm.checkInput(input, sc);
+                    result = nm.checkNum(validatedInput);
                 } catch (InputMismatchException e) {
                     System.out.println("⚠️ Invalid input! Please enter a whole number.\n");
-                    sc.next(); // Flush bad string token from scanner
-                }
+                    sc.next();
+                }wqwq
             }
 
-            System.out.println("\n-----------------------------------------");
-            System.out.println("🏁 GAME OVER 🏁");
-            System.out.println("Final Score   : " + nm.score);
-            System.out.println("Total Guesses : " + nm.numOfGuesses);
-            System.out.println("=========================================");
+            // Only display scores if the game ended normally (not via validation failure)
+            if (validatedInput != -1) {
+                System.out.println("\n-----------------------------------------");
+                System.out.println("🏁 GAME OVER 🏁");
+                System.out.println("Final Score   : " + nm.score);
+                System.out.println("Total Guesses : " + nm.numOfGuesses);
+                System.out.println("=========================================");
+            }
 
             System.out.print("\nDo you want to play again? (y/n): ");
             playAgainChoice = sc.next().toLowerCase().charAt(0);
