@@ -40,5 +40,60 @@ public class ATMService {
             System.out.println("Login successful!");
             System.out.println(account);
         }
+
+        showMenu();
+        System.out.print("Enter Choice : ");
+        byte choice= scanner.nextByte();
+
+        if(choice==1)
+            checkBalance(account);
+        if (choice==2){
+            System.out.print("Enter deposit Amount : ");
+            long amount= scanner.nextLong();
+            deposit(account,amount);
+        } else if (choice==3) {
+            System.out.print("Enter deposit Amount : ");
+            long amount= scanner.nextLong();
+            withdraw(account,amount);
+        } else
+            System.out.println("Invalid Choice !!!");
+    }
+
+    public void checkBalance(Account account){
+        System.out.println("Balance : ₹ "+account.getBalance());
+    }
+
+
+    public void updatedBalance(Account account){
+        System.out.println("Updated Balance : ₹ "+account.getBalance());
+    }
+    public void deposit(Account account,long amount){
+        if (amount > 0){
+            long am= account.getBalance();
+            account.setBalance(am+amount);
+            System.out.println("Deposit successful!");
+            updatedBalance(account);
+        }
+        else
+            System.out.println("Invalid deposit amount.");
+    }
+
+
+    public  void withdraw(Account account,long amount){
+        if (amount>0){
+            long am=account.getBalance();
+            if (am>=amount){
+                account.setBalance(am-amount);
+            }
+            else
+                System.out.println("Insufficient Balance !! ");
+        }
+        else
+            System.out.println("Invalid withdraw amount");
+    }
+    public void showMenu(){
+        System.out.println("1.Check BankBalance ");
+        System.out.println("2.Deposit Amount");
+        System.out.println("3.Withdraw Amount ");
     }
 }

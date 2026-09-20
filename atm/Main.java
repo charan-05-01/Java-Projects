@@ -7,12 +7,14 @@ public class Main {
         ATMService atmService = new ATMService();
 
         atmService.getAccountDetails();
-        atmService.getAccountDetails();
-        atmService.getAccountDetails();
+//        atmService.getAccountDetails();
+//        atmService.getAccountDetails();
 
         atmService.loginToAccount();
 
         AccountsInformation info = new AccountsInformation();
+
         info.displayAccounts(new ArrayList<>(AccountsInformation.accounts.values()));
+
     }
 }
