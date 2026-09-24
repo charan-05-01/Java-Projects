@@ -69,6 +69,15 @@ public class Account {
         return mobile_number;
     }
 
+
+    public void displayDetails() {
+        System.out.println("Account Holder : " + accountHolderName);
+        System.out.println("Bank ID        : " + bankId);
+        System.out.println("Branch         : " + branch);
+        System.out.println("Mobile Number  : " + mobile_number);
+        System.out.println("Balance        : ₹" + balance);
+    }
+
     @Override
     public String toString() {
         return "Account{" +

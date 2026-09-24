@@ -7,7 +7,8 @@ public class ATMService {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public void getAccountDetails() {
+
+    public  void createAccount(){
         System.out.print("Enter Name : ");
         String name = scanner.nextLine();
         System.out.print("Enter Mobile Number : ");
@@ -23,9 +24,10 @@ public class ATMService {
         Account account = new Account(name, bankId, branch_name, mobile, pin, 0L);
         new AccountsInformation().addAccount(bankId,account);
 
-        System.out.println("Account created successfully: " + account);
+        System.out.println("Account created successfully!! ");
+        System.out.println("Bank ID : "+account.getBankId());
+        showMainMenu();
     }
-
     public void loginToAccount() {
         System.out.print("Enter Bank ID : ");
         long bankId = Long.parseLong(scanner.nextLine());
@@ -38,21 +40,25 @@ public class ATMService {
 
         if (account != null) {
             System.out.println("Login successful!");
-            System.out.println(account);
+//            System.out.println(account);
+            showMenu();
+        }else {
+            System.out.println("Invalid Credentials ");
+            return;
         }
 
-        showMenu();
+
         System.out.print("Enter Choice : ");
         byte choice= scanner.nextByte();
 
         if(choice==1)
             checkBalance(account);
-        if (choice==2){
+        else if (choice==2){
             System.out.print("Enter deposit Amount : ");
             long amount= scanner.nextLong();
             deposit(account,amount);
         } else if (choice==3) {
-            System.out.print("Enter deposit Amount : ");
+            System.out.print("Enter Withdraw Amount : ");
             long amount= scanner.nextLong();
             withdraw(account,amount);
         } else
@@ -61,11 +67,13 @@ public class ATMService {
 
     public void checkBalance(Account account){
         System.out.println("Balance : ₹ "+account.getBalance());
+        showMainMenu();
     }
 
 
     public void updatedBalance(Account account){
         System.out.println("Updated Balance : ₹ "+account.getBalance());
+        showMainMenu();
     }
     public void deposit(Account account,long amount){
         if (amount > 0){
@@ -76,6 +84,7 @@ public class ATMService {
         }
         else
             System.out.println("Invalid deposit amount.");
+        showMainMenu();
     }
 
 
@@ -84,16 +93,21 @@ public class ATMService {
             long am=account.getBalance();
             if (am>=amount){
                 account.setBalance(am-amount);
+                updatedBalance(account);
             }
             else
                 System.out.println("Insufficient Balance !! ");
         }
         else
             System.out.println("Invalid withdraw amount");
+        showMainMenu();
     }
     public void showMenu(){
-        System.out.println("1.Check BankBalance ");
-        System.out.println("2.Deposit Amount");
-        System.out.println("3.Withdraw Amount ");
+        System.out.println("==========ATM MENU==========");
+        System.out.println("1.Check BankBalance\n2.Deposit Amount\n3.Withdraw Amount4.Logout");
+    }
+    public void showMainMenu(){
+        System.out.println("==========MENU==========");
+        System.out.println("1.Create Account\n2.Login Account\n3.Exit");
     }
 }
