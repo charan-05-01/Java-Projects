@@ -1,21 +1,24 @@
 package projects.atm;
 
 public class Account {
+
     private String accountHolderName;
     private long bankId;
     private String branch;
-    private String mobile_number;
+    private String mobileNumber;
     private int pin;
-    private Long balance;
+    private long balance;
 
     public Account() {
     }
 
-    public Account(String accountHolderName, Long bankId, String branch, String mobile_number, int pin, Long balance) {
+    public Account(String accountHolderName, long bankId, String branch,
+                   String mobileNumber, int pin, long balance) {
+
         this.accountHolderName = accountHolderName;
         this.bankId = bankId;
         this.branch = branch;
-        this.mobile_number = mobile_number;
+        this.mobileNumber = mobileNumber;
         this.pin = pin;
         this.balance = balance;
     }
@@ -24,11 +27,11 @@ public class Account {
         this.accountHolderName = accountHolderName;
     }
 
-    public void setBalance(Long balance) {
+    public void setBalance(long balance) {
         this.balance = balance;
     }
 
-    public void setBankId(Long bankId) {
+    public void setBankId(long bankId) {
         this.bankId = bankId;
     }
 
@@ -36,20 +39,19 @@ public class Account {
         this.branch = branch;
     }
 
-    public void setMobile_number(String mobile_number) {
-        this.mobile_number = mobile_number;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public void setPin(int pin) {
         this.pin = pin;
     }
 
-
     public int getPin() {
         return pin;
     }
 
-    public Long getBalance() {
+    public long getBalance() {
         return balance;
     }
 
@@ -65,27 +67,27 @@ public class Account {
         return branch;
     }
 
-    public String getMobile_number() {
-        return mobile_number;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-
     public void displayDetails() {
+
         System.out.println("Account Holder : " + accountHolderName);
         System.out.println("Bank ID        : " + bankId);
         System.out.println("Branch         : " + branch);
-        System.out.println("Mobile Number  : " + mobile_number);
+        System.out.println("Mobile Number  : " + mobileNumber);
         System.out.println("Balance        : ₹" + balance);
     }
 
     @Override
     public String toString() {
+
         return "Account{" +
                 "accountHolderName='" + accountHolderName + '\'' +
                 ", bankId=" + bankId +
                 ", branch='" + branch + '\'' +
-                ", mobile_number='" + mobile_number + '\'' +
-                ", pin=" + pin +
+                ", mobileNumber='" + mobileNumber + '\'' +
                 ", balance=" + balance +
                 '}';
     }
