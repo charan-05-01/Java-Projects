@@ -1,5 +1,8 @@
 package projects.atm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Account {
 
     private String accountHolderName;
@@ -8,8 +11,10 @@ public class Account {
     private String mobileNumber;
     private int pin;
     private long balance;
+    private List transactionHistory;
 
     public Account() {
+        this.transactionHistory = new ArrayList<>();
     }
 
     public Account(String accountHolderName, long bankId, String branch,
@@ -21,6 +26,7 @@ public class Account {
         this.mobileNumber = mobileNumber;
         this.pin = pin;
         this.balance = balance;
+        this.transactionHistory = new ArrayList<>();
     }
 
     public void setAccountHolderName(String accountHolderName) {
@@ -69,6 +75,14 @@ public class Account {
 
     public String getMobileNumber() {
         return mobileNumber;
+    }
+
+    public List getTransactionHistory() {
+        return transactionHistory;
+    }
+
+    public void addTransaction(String type, long amount) {
+        transactionHistory.add(new Transaction(type, amount, this.balance));
     }
 
     public void displayDetails() {
